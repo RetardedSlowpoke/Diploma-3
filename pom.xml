@@ -16,6 +16,7 @@
         <junit.jupiter.version>5.11.0</junit.jupiter.version>
         <selenium.version>4.23.0</selenium.version>
         <allure.version>2.29.0</allure.version>
+        <wdm.version>5.9.2</wdm.version>
     </properties>
 
     <dependencies>
@@ -32,6 +33,13 @@
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
+        </dependency>
+
+        <!-- WebDriverManager -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${wdm.version}</version>
         </dependency>
 
         <!-- Allure JUnit 5 -->
