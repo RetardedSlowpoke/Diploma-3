@@ -23,7 +23,7 @@ public class RegistrationTests extends BaseTest {
 
     @Test
     @DisplayName("Успешная регистрация нового пользователя через юай")
-    @Description("Регистрируем нового пользователя и проверяем, что после этого открывается страница логина") //Несмотря на то, что в задании требуется использовать API для регистрации, этот тест, очевидно, должен стать исключением: регистрацию через API проверяли во втором задании, здесь же мы проверяем что сам пользователь по кнопкам может протыкать.
+    @Description("Регистрируем нового пользователя и проверяем, что после этого открывается страница логина") //Несмотря на то, что в задании требуется использовать API для регистрации, этот тест, очевидно, должен стать исключением: регистрацию через API проверяли во втором задании, здесь же мы проверяем что сам пользователь по кнопкам может протыкать (в этом конкретном случае, да).
     public void registerNewUserTest() {
         RegisterPage registerPage = new RegisterPage(driver);
         LoginPage loginPage = new LoginPage(driver);
@@ -65,7 +65,7 @@ public class RegistrationTests extends BaseTest {
         registerPage.enterRandomEmail();
 
         registerPage.passwordFieldClick();
-        driver.findElement(registerPage.getPasswordField()).sendKeys("кошка");
+        driver.findElement(registerPage.getPasswordField()).sendKeys("кошка"); //мяу
 
         registerPage.registrationButtonClick();
 

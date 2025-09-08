@@ -14,15 +14,15 @@ public class MainPage extends BasePage {
         super(driver);
     }
 
-    // --- Локаторы ---
     private By loginMainPageButton = By.xpath("//button[text()='Войти в аккаунт']");
-    private By accountButton = By.xpath("//button[text()='Личный кабинет']");
+    private By accountButton = By.xpath("//a[p[text()='Личный Кабинет']]"); //вообще это скорее ссылка, а не кнопка, но уже слишком поздно.
+    private By placeOrderButton = By.xpath("//button[text()='Оформить заказ']"); //"Войти" после логина заменяется на эту кнопку, так и проверим вход.
 
     private By bunsTab = By.xpath("//span[text()='Булки']/parent::div");
     private By saucesTab = By.xpath("//span[text()='Соусы']/parent::div");
     private By fillingsTab = By.xpath("//span[text()='Начинки']/parent::div");
 
-    // --- Действия ---
+
     @Step("Клик на кнопку входа на главной")
     public void loginMainPageButtonClick() {
         click(loginMainPageButton);
@@ -54,7 +54,7 @@ public class MainPage extends BasePage {
                 .until(ExpectedConditions.attributeContains(fillingsTab, "class", "tab_tab_type_current"));
     }
 
-    // --- Проверки ---
+
     @Step("Проверяем что вкладка Булки активна")
     public boolean isBunsActive() {
         return driver.findElement(bunsTab).getAttribute("class").contains("tab_tab_type_current");
@@ -69,17 +69,15 @@ public class MainPage extends BasePage {
     public boolean isFillingsActive() {
         return driver.findElement(fillingsTab).getAttribute("class").contains("tab_tab_type_current");
     }
-
-    // --- Геттеры ---
-    public By getSaucesTab() {
-        return saucesTab;
+    @Step("Проверяем что вход в аккаунт успешен (кнопка войти заменилась на оформить заказ)")
+    public boolean isPlaceOrderButtonVisible(){
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(placeOrderButton));
+        return driver.findElement(placeOrderButton).isDisplayed();
+    }
+    @Step("Проверяем что выход из аккаунта успешен)") //и опять появилась кнопка "войти"
+    public boolean isLoginMainPageButtonVisible(){
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(loginMainPageButton));
+        return driver.findElement(loginMainPageButton).isDisplayed();
     }
 
-    public By getBunsTab() {
-        return bunsTab;
-    }
-
-    public By getFillingsTab() {
-        return fillingsTab;
-    }
 }

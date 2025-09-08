@@ -23,7 +23,7 @@ public class BaseTest {
         api = new API(baseUrl);
 
         String testName = testInfo.getDisplayName();
-        if (!testName.equals("shortPasswordErrorTest") && !testName.equals("registerNewUserTest")) {
+        if (!testName.equals("shortPasswordErrorTest") && !testName.equals("registerNewUserTest")) { //Везде кроме тестов с регистрацией (где мы делаем это принципиально руками) создаём и удаляем пользователя через api по заданию.
             user = api.createUser();
         }
     }

@@ -10,22 +10,17 @@ public class ForgotPassPage extends BasePage {
         super(driver);
     }
 
-    private By emailField = By.name("name");
-    private By restoreButton = By.xpath("//button[text()='Восстановить']");
+
     private By loginLink = By.xpath("//a[text()='Войти']");
 
-    @Step("Выбор поля email")
-    public void emailFieldClick() {
-        click(emailField);
-    }
 
-    @Step("Клик на кнопку восстановить")
-    public void restoreButtonClick() {
-        click(restoreButton);
-    }
 
     @Step("Клик на ссылку войти")
     public void loginLinkClick() {
         click(loginLink);
+    }
+    @Step("Открыть страницу забытого пароля")
+    public void open() {
+        driver.get("https://stellarburgers.nomoreparties.site/forgot-password");
     }
 }
