@@ -15,7 +15,7 @@ public class BaseTest {
 
     @BeforeEach
     public void setUp(TestInfo testInfo) {
-        String browser = System.getProperty("yandex", "chrome");
+        String browser = System.getProperty("browser", "chrome");
         driver = WebDriverFactory.createDriver(browser);
         driver.manage().window().maximize();
         driver.get(baseUrl);

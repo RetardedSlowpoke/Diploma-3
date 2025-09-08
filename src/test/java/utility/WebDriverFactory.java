@@ -9,7 +9,7 @@ public class WebDriverFactory {
 
     public static WebDriver createDriver(String browserName) {
 
-        WebDriverManager.chromedriver().setup(); // ставим драйвер
+        WebDriverManager.chromedriver().driverVersion("138").setup(); // ставим драйвер который точно подойдёт и туда и туда
 
         switch (browserName) {
             case "chrome":
@@ -17,7 +17,7 @@ public class WebDriverFactory {
 
             case "yandex":
                 ChromeOptions options = new ChromeOptions();
-                options.setBinary("C:\\Path\\To\\YandexBrowser\\browser.exe");
+                options.setBinary("C:\\Users\\Stange\\AppData\\Local\\Yandex\\YandexBrowser\\Application\\browser.exe"); //Интересно, насколько корректно оставлять тут __свой__ путь, хм. :thinking:
                 return new ChromeDriver(options);
 
             default:
