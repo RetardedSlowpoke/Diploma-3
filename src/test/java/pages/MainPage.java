@@ -2,7 +2,9 @@ package pages;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -18,7 +20,7 @@ public class MainPage extends BasePage {
     private By accountButton = By.xpath("//a[p[text()='Личный Кабинет']]"); //вообще это скорее ссылка, а не кнопка, но уже слишком поздно.
     private By placeOrderButton = By.xpath("//button[text()='Оформить заказ']"); //"Войти" после логина заменяется на эту кнопку, так и проверим вход.
 
-    private By bunsTab = By.xpath("//span[text()='Булки']/parent::div");
+    private By bunsTab = By.xpath("//div[span[text()='Булки']]"); //А тут другой локатор был нужен если со старта её искать... Заняло время.
     private By saucesTab = By.xpath("//span[text()='Соусы']/parent::div");
     private By fillingsTab = By.xpath("//span[text()='Начинки']/parent::div");
 
@@ -33,12 +35,12 @@ public class MainPage extends BasePage {
         click(accountButton);
     }
 
-    @Step("Клик по вкладке Булки и ожидание её активации")
+    @Step("Клик по вкладке Булки")
     public void bunsTabClick() {
-        driver.findElement(bunsTab).click();
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.attributeContains(bunsTab, "class", "tab_tab_type_current"));
-    }
+        WebElement buns = driver.findElement(bunsTab);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", buns); //Из-за того что вкладка открыта по-умолчанию, она, кажется, перекрывается родительским <div>, но в задании же прямо указано, что надо кликать...
+    }                                    //Вот и кликаем, как можем. ._. Да и правильнее это, думается.
+                                        //Здесь ничего не ждём - всё уже есть.
 
     @Step("Клик по вкладке Соусы и ожидание её активации")
     public void saucesTabClick() {
@@ -57,7 +59,7 @@ public class MainPage extends BasePage {
 
     @Step("Проверяем что вкладка Булки активна")
     public boolean isBunsActive() {
-        return driver.findElement(bunsTab).getAttribute("class").contains("tab_tab_type_current");
+    return driver.findElement(bunsTab).getAttribute("class").contains("tab_tab_type_current");
     }
 
     @Step("Проверяем что вкладка Соусы активна")

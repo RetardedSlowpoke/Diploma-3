@@ -6,8 +6,7 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
+import org.junit.jupiter.api.Test; //Тут тоже был неиспользуемый импорт.
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.LoginPage;

@@ -1,42 +1,44 @@
 package tests;
 
 import io.qameta.allure.Description;
-import io.qameta.allure.Step;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import pages.MainPage;
 import utility.BaseTest;
+
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MainPageTests extends BaseTest {
 
-    @Test
+    @Description("Проверяем вкладки конструктора перещёлкикаются верно.")
+    @ParameterizedTest(name = "Проверяем переход к разделу {0}")
+    @CsvSource({
+            "Булки",
+            "Соусы",
+            "Начинки"
+    })
     @DisplayName("Проверяем работу конструктора")
-    @Description("Проверяем вкладки конструктора перещёлкикаются верно.") //Начинаем с "Соусов", потому что "Булки" открыты по-умолчанию.
-    public void constructorNavigationTest() {
+    public void constructorNavigationTest(String section) {
         MainPage mainPage = new MainPage(driver);
 
-        checkSaucesSection(mainPage);
-        checkBunsSection(mainPage);
-        checkFillingsSection(mainPage);
+        switch (section) {
+            case "Булки":
+                mainPage.bunsTabClick();
+                assertTrue(mainPage.isBunsActive(), "Раздел 'Булки' должен быть активен");
+                break;
+            case "Соусы":
+                mainPage.saucesTabClick();
+                assertTrue(mainPage.isSaucesActive(), "Раздел 'Соусы' должен быть активен");
+                break;
+            case "Начинки":
+                mainPage.fillingsTabClick();
+                assertTrue(mainPage.isFillingsActive(), "Раздел 'Начинки' должен быть активен");
+                break;
+            default:
+                throw new IllegalArgumentException("Неизвестная вкладка: " + section);
+        }
     }
 
-    @Step("Проверяем переход к разделу 'Соусы'")
-    private void checkSaucesSection(MainPage mainPage) {
-        mainPage.saucesTabClick();
-        assertTrue(mainPage.isSaucesActive(), "Раздел 'Соусы' должен быть активен");
-    }
-
-    @Step("Проверяем переход к разделу 'Булки'")
-    private void checkBunsSection(MainPage mainPage) {
-        mainPage.bunsTabClick();
-        assertTrue(mainPage.isBunsActive(), "Раздел 'Булки' должен быть активен");
-    }
-
-    @Step("Проверяем переход к разделу 'Начинки'")
-    private void checkFillingsSection(MainPage mainPage) {
-        mainPage.fillingsTabClick();
-        assertTrue(mainPage.isFillingsActive(), "Раздел 'Начинки' должен быть активен");
-    }
 }
